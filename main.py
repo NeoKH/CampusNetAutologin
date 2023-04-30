@@ -14,6 +14,8 @@ from ping3 import ping
 from playwright.sync_api import Playwright, sync_playwright
 
 # global variables
+username = "XX"
+password = "**"
 dog_flag = True # dog为真,表示断网;dog为假,表示联网.
 login_flag = False # login为真,表示联网;login为假,表示断网.
 IP_LIST=[
@@ -60,8 +62,8 @@ def login(playwright: Playwright):
         context = browser.new_context()
         page = context.new_page()
         page.goto("http://m.njust.edu.cn")
-        page.fill("id=username", "XXXXXX")
-        page.fill("id=password", "******")
+        page.fill("id=username", username)
+        page.fill("id=password", password)
         if not page.is_checked('#ck_rmbUser'):
             page.check('#ck_rmbUser')
         # page.screenshot(path="before_login.png")
@@ -81,8 +83,8 @@ def logout(playwright: Playwright):
         context = browser.new_context()
         page = context.new_page()
         page.goto("http://m.njust.edu.cn")
-        page.fill("id=username", "XXXXXXX")
-        page.fill("id=password", "*******")
+        page.fill("id=username", username)
+        page.fill("id=password", password)
         if not page.is_checked('#ck_rmbUser'):
             page.check('#ck_rmbUser')
         # page.screenshot(path="before_login.png")
@@ -107,8 +109,8 @@ def logout_login(playwright: Playwright):
         time.sleep(0.3)
         # print("logout")
         page.screenshot(path="logout.png")
-        page.fill("id=username", "XXXXXX")
-        page.fill("id=password", "******")
+        page.fill("id=username", username)
+        page.fill("id=password", password)
         if not page.is_checked('#ck_rmbUser'):
             page.check('#ck_rmbUser')
         # page.screenshot(path="before_login.png")
