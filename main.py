@@ -62,7 +62,7 @@ def loginCampusNet(playwright: Playwright):
         page = context.new_page()
         page.goto("http://m.njust.edu.cn")
         page.fill("id=username", "XXXXXX")
-        page.fill("id=password", "********")
+        page.fill("id=password", "******")
         if not page.is_checked('#ck_rmbUser'):
             page.check('#ck_rmbUser')
         # page.screenshot(path="before_login.png")
@@ -109,7 +109,7 @@ def logout_login(playwright: Playwright):
         # print("logout")
         page.screenshot(path="logout.png")
         page.fill("id=username", "XXXXXX")
-        page.fill("id=password", "********")
+        page.fill("id=password", "******")
         if not page.is_checked('#ck_rmbUser'):
             page.check('#ck_rmbUser')
         # page.screenshot(path="before_login.png")
