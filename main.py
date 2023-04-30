@@ -1,3 +1,8 @@
+# ========================================================================================
+# 方案1. 校园网连接成功后,一般有24小时的持续在线时长,可以考虑在中途抽取时间点测试,在24小时附近重点测试
+# 方案2. 每隔(10ms) ping一次网路, 成功则表示校园网正常,失败则表示断网,然后去执行联网函数
+# ========================================================================================
+
 import time
 import random
 import threading
@@ -30,13 +35,6 @@ IP_LIST=[
     "218.78.243.233", # "http://www.gov.cn/"
 ]
 
-# ========================================================================================
-# 1. 校园网连接成功后,一般有24小时的持续在线时长,可以考虑在中途抽取时间点测试,在24小时附近重点测试
-# 1. 每隔(10ms) ping一次网路, 成功则表示校园网正常,失败则表示断网,然后去执行联网函数
-# 2. 
-# ========================================================================================
-
-
 def ping_watchdog():
     time_circles = [0.01,0.02,0.03,0.04,0.05,0.06]
     jdx = 0
@@ -60,13 +58,12 @@ def loginCampusNet(playwright: Playwright):
         context = browser.new_context()
         page = context.new_page()
         page.goto("http://m.njust.edu.cn")
-        page.fill("id=username", "120106010753")
-        page.fill("id=password", "062512kh")
+        page.fill("id=username", "XXXXXX")
+        page.fill("id=password", "********")
         if not page.is_checked('#ck_rmbUser'):
             page.check('#ck_rmbUser')
         # page.screenshot(path="before_login.png")
         page.click("id=loginBtn")
-        # time.sleep(1)
         # page.screenshot(path="after_login.png")
         login_flag = True
         dog_flag = False
@@ -82,13 +79,13 @@ def logout(playwright: Playwright):
         context = browser.new_context()
         page = context.new_page()
         page.goto("http://m.njust.edu.cn")
-        page.fill("id=username", "120106010753")
-        page.fill("id=password", "062512kh")
+        page.fill("id=username", "XXXXXXX")
+        page.fill("id=password", "*******")
         if not page.is_checked('#ck_rmbUser'):
             page.check('#ck_rmbUser')
         # page.screenshot(path="before_login.png")
         page.click("id=loginBtn")
-        # time.sleep(1)
+        time.sleep(0.5)
         # page.screenshot(path="after_login.png")
         login_flag = True
         dog_flag = False
@@ -105,15 +102,15 @@ def logout_login(playwright: Playwright):
         page = context.new_page()
         page.goto("http://m.njust.edu.cn")
         page.click("id=logoutBtn")
-        time.sleep(0.2)
+        time.sleep(0.3)
         # print("logout")
-        # page.screenshot(path="logout.png")
-        page.fill("id=username", "120106010753")
-        page.fill("id=password", "062512kh")
+        page.screenshot(path="logout.png")
+        page.fill("id=username", "XXXXXX")
+        page.fill("id=password", "********")
         if not page.is_checked('#ck_rmbUser'):
             page.check('#ck_rmbUser')
         # page.screenshot(path="before_login.png")
-        time.sleep(0.3)
+        time.sleep(0.35)
         page.click("id=loginBtn")
         # print("login")
         page.screenshot(path="after_login.png")
@@ -126,12 +123,13 @@ def logout_login(playwright: Playwright):
         browser.close()
 
 if __name__ == "__main__":
-    # print (u"Hi，校园网自动登陆脚本正在运行")
+    print (u"Hi,校园网自动登陆脚本正在运行")
     while True:
         with sync_playwright() as playwright:
             logout_login(playwright)
         print("登出登入成功")
-        time.sleep(60*3)
+        time.sleep(60*60*24-20)
+        
     #     if dog_flag and not login_flag: # 表示断网
     #         with sync_playwright() as playwright:
     #             login_flag = loginCampusNet(playwright)
