@@ -1,2 +1,2 @@
 ping3
-playwright # 自己找教程安
+playwright # 自己找教程安,还需要安浏览器内核
