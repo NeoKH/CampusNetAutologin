@@ -54,8 +54,7 @@ def ping_watchdog():
         jdx += 1
         jdx %= len(time_circles)
 
-
-def loginCampusNet(playwright: Playwright):
+def login(playwright: Playwright):
     try:
         browser = playwright.chromium.launch(headless=True)
         context = browser.new_context()
@@ -132,12 +131,11 @@ if __name__ == "__main__":
             logout_login(playwright)
         print("登出登入成功")
         time.sleep(60*60*24-20)
-        
+
     #     if dog_flag and not login_flag: # 表示断网
     #         with sync_playwright() as playwright:
-    #             login_flag = loginCampusNet(playwright)
+    #             login_flag = login(playwright)
     #     if not dog_flag and login_flag: # 登录成功
     #         login_time = time.time()
-    #         
     #         t.start()
     
