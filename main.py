@@ -16,6 +16,8 @@ from playwright.sync_api import Playwright, sync_playwright
 # global variables
 username = "XX"
 password = "**"
+logout_waittime = 0.5
+login_waittime = 0.5
 dog_flag = True # dog为真,表示断网;dog为假,表示联网.
 login_flag = False # login为真,表示联网;login为假,表示断网.
 IP_LIST=[
